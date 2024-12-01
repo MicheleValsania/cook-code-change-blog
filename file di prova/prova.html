@@ -1,0 +1,302 @@
+/* Global Styles */
+body {
+    font-family: 'Lora', serif; /* Font rilassante */
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background: url('../img/background.webp') no-repeat center center fixed;
+    background-size: cover; /* Adatta l'immagine allo schermo */
+    background-color: #f8f0d8; /* Colore di fallback */
+}
+/* Ombre per le colonne */
+.post-item {
+    background: rgba(255, 255, 255, 0.9); /* Sfondo bianco semi-trasparente */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.2); /* Ombra più evidente */
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+
+/* Header */
+header {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 2px solid #EAEAEA;
+}
+
+/* Header Styling */
+.blog-header {
+    background: linear-gradient(to right, #ececec, #e0d6cf);
+    text-align: center;
+    padding: 100px 20px;
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-family: 'Playfair Display', serif;
+    color: #1E90FF;
+}
+
+.main-menu {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Sfondo semi-trasparente */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+}
+
+.main-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 150px; /* Spazio tra i link */
+}
+
+.main-menu ul li a {
+    text-decoration: none;
+    color: #b87333;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.main-menu ul li a:hover {
+    color: #d19b65; /* Cambia colore al passaggio del mouse */
+}
+
+/* Font per il contenuto */
+h1, h2, h3 {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+}
+
+p {
+    font-family: 'Lora', serif;
+}
+
+/* Navigation */
+nav {
+    text-align: center;
+    margin: 20px 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: #FFA500;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Layout dei post */
+.posts-layout {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* Il post principale occuperà 75% dello spazio, le references 25% */
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.wide-post {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    text-align: justify;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%; /* Rimuove la larghezza fissa per adattarsi al layout */
+    margin-bottom: 30px; /* Rimuove il margine aggiuntivo */
+}
+
+.wide-post, .column {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  overflow: auto;
+}
+
+.wide-post img, .column img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+
+/* Due colonne */
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  
+  .column {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    height: 100%;
+  }
+  
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #777;
+}
+/* Header Styling */
+.blog-header {
+    background: linear-gradient(to right, #ececec, #e0d6cf); /* Light gray to subtle copper */
+    text-align: center;
+    padding: 100px 20px; /* Spazio extra per lettere più grandi */
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2); /* Ombra accentuata */
+    position: relative;
+}
+
+.header-content h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 5rem; /* Ancora più grande */
+    letter-spacing: 0.07em; /* Distanza tra lettere */
+    margin: 0;
+    text-shadow: 3px 5px 7px rgba(0, 0, 0, 0.4); /* Ombra più intensa sulle lettere */
+}
+
+.header-content .cook {
+    color: #b87333; /* Subtle copper */
+    font-weight: 400; /* Meno bold */
+}
+
+.header-content .code {
+    color: #606060; /* Cool gray */
+    font-weight: 400; /* Meno bold */
+}
+
+.header-content .change {
+    background: -webkit-linear-gradient(#606060, #b87333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Gradient text */
+    font-weight: 400; /* Meno bold */
+}
+
+.header-content .tagline {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: #2e2e2e;
+    margin-top: 40px; /* Distanza dal titolo */
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
+    line-height: 1.2; /* Interlinea ridotta */
+    position: relative;
+}
+
+
+
+footer {
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.8rem;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Sfondo semi-trasparente */
+    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.2); /* Ombra verso l'alto */
+}
+/* Featured Post */
+.featured-post .post-item {
+    width: 100%;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+/* Three Posts */
+.three-posts {
+    display: flex;
+    flex-wrap: wrap; /* Permette due o tre colonne */
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.post-column {
+    flex: 1 1 calc(33.33% - 20px); /* Tre colonne */
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.post-column:hover {
+    transform: translateY(-5px); /* Effetto di sollevamento al passaggio del mouse */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.post-column h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.post-column p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.post-column a {
+    color: #b87333); /* Colore del link */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.post-column a:hover {
+    text-decoration: underline;
+}
+.references {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 1200px;
+    margin: 40px auto;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.references h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.references ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.references ul li {
+    margin: 10px 0;
+}
+
+.references ul li a {
+    color: #b87333);
+    text-decoration: none;
+}
+
+.references ul li a:hover {
+    text-decoration: underline;
+}
+

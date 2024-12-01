@@ -1,0 +1,7 @@
+<h2>Posts tagged: {{ tag_name }}</h2>
+<ul>
+    {% for post in posts %}
+        <li><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a> - {{ post.created_at|date:"F d, Y" }}</li>
+    {% endfor %}
+</ul>
+
