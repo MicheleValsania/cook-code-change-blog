@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    
 </head>
 <body>
     <header class="blog-header">
@@ -18,59 +17,80 @@
                 <span class="code"><i class="fas fa-code"></i> Code</span>
                 <span class="change"><i class="fas fa-sync-alt"></i> Change</span>
             </h1>
-            <p class="tagline">Ce site est une aventure. Créé à partir de zéro, avec un peu de Django, une touche de HTML, et un soupçon de CSS.<p>
-            <p class="tagline"> Il évolue, comme un plat qu’on ajuste à chaque dégustation. Merci de faire partie du voyage.</p>   
+            <p class="tagline">Ce site est une aventure. Créé à partir de zéro, avec un peu de Django, une touche de HTML, et un soupçon de CSS.</p>
+            <p class="tagline">Il évolue, comme un plat qu'on ajuste à chaque dégustation. Merci de faire partie du voyage.</p>   
         </div>
     </header>
+
     <nav class="main-menu">
-        <ul>
-            <li><a href="{% url 'category_posts' 'Cook' %}">Cook</a></li>
-            <li><a href="{% url 'category_posts' 'Code' %}">Code</a></li>
-            <li><a href="{% url 'category_posts' 'Change' %}">Change</a></li>
-        </ul>
-    </nav>
-    <main class="posts-layout">
-        <section>
-            {% if posts %}
-                <div class="wide-post">
-                    <h2>{{ posts.0.title }}</h2>
-                    <p><small>{{ posts.0.created_at|date:"F d, Y" }}</small></p>
-                    <p>{{ posts.0.content }}</p>
-
-                    
-                    <a href="{% url 'post_detail' posts.0.id %}">Read More</a>
-
-
-                </div>
-                <div class="columns">
-                    {% for post in posts|slice:"1:3" %}
-                        <div class="column">
-                            <h2>{{ post.title }}</h2>
-                            <p><small>{{ post.created_at|date:"F d, Y" }}</small></p>
-                            <p>{{ post.content|truncatewords:60 }}</p>
-                            <a href="{% if post.id %}{% url 'post_detail' post.id %}{% else %}#{% endif %}">Read More</a>
-
-                        </div>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p>No posts available. Start writing!</p>
-            {% endif %}
-        </section>
-        <aside class="references">
-            <h2>Resources</h2>
+        <div class="menu-container">
             <ul>
-                <li><a href="https://www.djangoproject.com/">Django Documentation</a> - Tools for web development</li>
-                <li><a href="https://realpython.com/">Real Python</a> - Python tutorials and tips</li>
-                <li><a href="#">BeautifulSoup Guide</a> - Learn web scraping effectively</li>
+                <li><a href="{% url 'category_posts' 'Cook' %}">Cook</a></li>
+                <li><a href="{% url 'category_posts' 'Code' %}">Code</a></li>
+                <li><a href="{% url 'category_posts' 'Change' %}">Change</a></li>
             </ul>
+        </div>
+    </nav>
+
+    <main class="posts-layout">
+        <div class="main-content">
+            <section class="posts-section">
+                {% if posts %}
+                    <div class="wide-post">
+                        <div class="article-intro">
+                            <span class="dropcap">{{ posts.0.content|slice:":1" }}</span>
+                            <span class="intro-text">{{ posts.0.content|slice:"1:" }}</span>
+                        </div>
+                        
+                        <h2>{{ posts.0.title }}</h2>
+                        {% if posts.0.image %}
+                            <img src="{{ posts.0.image.url }}" alt="{{ posts.0.title }}" class="post-image">
+                        {% endif %}
+                        <p><small>{{ posts.0.created_at|date:"F d, Y" }}</small></p>
+                        <p>{{ posts.0.content }}</p>
+                        <a href="{% url 'post_detail' posts.0.id %}" class="read-more">Read More</a>
+                    </div>
+
+                    <div class="columns">
+                        {% for post in posts|slice:"1:3" %}
+                            <div class="column">
+                                <h2>{{ post.title }}</h2>
+                                {% if post.image %}
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+                                {% endif %}
+                                <p><small>{{ post.created_at|date:"F d, Y" }}</small></p>
+                                <p>{{ post.content|truncatewords:60 }}</p>
+                                <a href="{% url 'post_detail' post.id %}" class="read-more">Read More</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p>No posts available. Start writing!</p>
+                {% endif %}
+            </section>
+        </div>
+
+        <aside class="sidebar">
+            <div class="references">
+                <h2>Resources</h2>
+                <ul>
+                    <li><a href="https://www.djangoproject.com/">Django Documentation</a> - Tools for web development</li>
+                    <li><a href="https://realpython.com/">Real Python</a> - Python tutorials and tips</li>
+                    <li><a href="#">BeautifulSoup Guide</a> - Learn web scraping effectively</li>
+                </ul>
+            </div>
+
+            <div class="instagram-feed">
+                <h2>My Hidden Provence</h2>
+                <div id="instagram-container">
+                    <!-- Instagram feed content -->
+                </div>
+            </div>
         </aside>
     </main>
-    
 
     <footer>
         <p>&copy; 2024 Cook Code Change. Designed with passion for cooking and coding.</p>
     </footer>
-    
 </body>
 </html>

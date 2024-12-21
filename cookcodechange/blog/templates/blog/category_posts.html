@@ -1,17 +1,75 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ category }} Posts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category }} - Cook Code Change</title>
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>{{ category }} Posts</h1>
-    <ul>
-        {% for post in posts %}
-            <li>
-                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a> - {{ post.created_at|date:"F d, Y" }}
-            </li>
-        {% endfor %}
-    </ul>
+    <header class="blog-header internal-header">
+        <div class="header-content">
+            <h1>
+                <a href="{% url 'homepage' %}" style="text-decoration: none; color: inherit;">
+                    <span class="cook"><i class="fas fa-utensils"></i> Cook</span>
+                    <span class="code"><i class="fas fa-code"></i> Code</span>
+                    <span class="change"><i class="fas fa-sync-alt"></i> Change</span>
+                </a>
+            </h1>
+        </div>
+    </header>
+
+    <nav class="main-menu">
+        <div class="menu-container">
+            <ul>
+                <li><a href="{% url 'category_posts' 'Cook' %}">Cook</a></li>
+                <li><a href="{% url 'category_posts' 'Code' %}">Code</a></li>
+                <li><a href="{% url 'category_posts' 'Change' %}">Change</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="category-layout">
+        <!-- Sidebar con archivio -->
+        <aside class="category-sidebar">
+            <h3>{{ category }} Archive</h3>
+            <ul class="archive-list">
+                {% for post in archive %}
+                    <li>
+                        <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                        <span class="post-date">{{ post.created_at|date:"M d, Y" }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <!-- Main content area -->
+        <main class="category-main">
+            <h2>Latest Posts in {{ category }}</h2>
+            {% if posts %}
+                <div class="posts-grid">
+                    {% for post in posts %}
+                        <article class="post-card">
+                            <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+                            {% if post.image %}
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+                            {% endif %}
+                            <p class="post-date">{{ post.created_at|date:"F d, Y" }}</p>
+                            <p class="post-excerpt">{{ post.content|truncatewords:30 }}</p>
+                            <a href="{% url 'post_detail' post.id %}" class="read-more">Read More</a>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No posts found in this category.</p>
+            {% endif %}
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Cook Code Change. Designed with passion for cooking and coding.</p>
+    </footer>
 </body>
 </html>

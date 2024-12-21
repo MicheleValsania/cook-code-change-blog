@@ -4,23 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ post.title }}</title>
+    <title>{{ category }} - Cook Code Change</title>
     <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>{{ post.title }}</h1>
-        <p><small>Published on {{ post.created_at|date:"F d, Y" }}</small></p>
+    <header class="blog-header internal-header">
+        <div class="header-content">
+            <h1>
+                <a href="{% url 'homepage' %}" style="text-decoration: none; color: inherit;">
+                    <span class="cook"><i class="fas fa-utensils"></i> Cook</span>
+                    <span class="code"><i class="fas fa-code"></i> Code</span>
+                    <span class="change"><i class="fas fa-sync-alt"></i> Change</span>
+                </a>
+            </h1>
+        </div>
+        <nav class="main-menu">
+            <ul>
+                <li><a href="{% url 'category_posts' 'Cook' %}">Cook</a></li>
+                <li><a href="{% url 'category_posts' 'Code' %}">Code</a></li>
+                <li><a href="{% url 'category_posts' 'Change' %}">Change</a></li>
+            </ul>
+        </nav>
     </header>
-    <main>
-        <article>
-            <p>{{ post.content }}</p>
-            <p>Tags:
-                {% for tag in post.tags.all %}
-                    <a href="{% url 'posts_by_tag' tag.name %}">{{ tag.name }}</a>
-                {% endfor %}
-            </p>
-        </article>
+    <main class="posts-layout">
+        <!-- Riquadro principale -->
+        <section class="wide-post">
+            <h1>{{ post.title }}</h1>
+            <p>{{ post.created_at|date:"F d, Y" }}</p>
+            <div class="content">{{ post.content|safe }}</div>
+        </section>
+        
+        <!-- Colonna laterale -->
+        <aside class="post-sidebar">
+            <div class="related-posts">
+                <h3>More from {{ post.category }}</h3>
+                <ul class="post-list">
+                    {% if related_posts %}
+                        {% for post in related_posts %}
+                            <li class="post-list-item">
+                                <a href="{% url 'post_detail' post.id %}">
+                                    {{ post.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="post-list-item">No other posts in this category</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </aside>
     </main>
+    
 </body>
 </html>

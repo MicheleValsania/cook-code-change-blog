@@ -1,187 +1,243 @@
-/* Global Styles */
+/* Base styles */
 body {
-    font-family: 'Lora', serif; /* Font rilassante */
-    font-size: 18px;
-    line-height: 1.6;
-    color: #333;
     margin: 0;
     padding: 0;
-    background: url('../img/background.webp') no-repeat center center fixed;
-    background-size: cover; /* Adatta l'immagine allo schermo */
-    background-color: #f8f0d8; /* Colore di fallback */
-}  
-/* Header */
-header {
-    text-align: center;
-    padding: 20px 0;
-    border-bottom: 2px solid #EAEAEA;
+    font-family: 'Lora', serif;
+    line-height: 1.6;
 }
+
+/* Header styles */
 .blog-header {
-    background: linear-gradient(to right, #ececec, #e0d6cf);
-    padding: 100px 20px;
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
-    position: relative;
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+    text-align: center;
 }
+
 .header-content h1 {
-    font-family: 'Roboto', sans-serif;
-    font-size: 5rem; /* Ancora più grande */
-    letter-spacing: 0.07em; /* Distanza tra lettere */
-    margin: 0;
-    text-shadow: 7px 5px 7px rgba(0, 0, 0, 0.6); /* Ombra più intensa sulle lettere */
-}
-.header-content .cook {
-    color: #b87333; /* Subtle copper */
-    font-weight: 400; /* Meno bold */
+    font-family: 'Amatic SC', cursive;
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
-.header-content .code {
-    color: #606060; /* Cool gray */
-    font-weight: 400; /* Meno bold */
-}
-
-.header-content .change {
-    background: -webkit-linear-gradient(#606060, #b87333);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /* Gradient text */
-    font-weight: 400; /* Meno bold */
-}
-
-.header-content .tagline {
-    font-family: 'Caveat', cursive;
-    font-size: 1.5rem;
-    color: #2e2e2e;
-    margin-top: 40px; /* Distanza dal titolo */
-    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2);
-    line-height: 1.2; /* Interlinea ridotta */
-    position: relative;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    font-family: 'Caveat', serif;
-}
+/* Navigation styles */
 .main-menu {
+    background-color: #333;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.menu-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.main-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.8); /* Sfondo semi-trasparente */
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 10px 0;
+    gap: 2rem;
 }
-.main-menu ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 150px; /* Spazio tra i link */
-}
-.main-menu ul li a {
+
+.main-menu a {
+    color: white;
     text-decoration: none;
-    color: #b87333;
-    font-weight: bold;
     font-size: 1.2rem;
-    transition: color 0.3s ease;
-}
-.main-menu ul li a:hover {
-    color: #d19b65; /* Cambia colore al passaggio del mouse */
+    padding: 0.5rem 1rem;
+    transition: color 0.3s;
 }
 
-/* Font per il contenuto */
-h1, h2, h3 {
-    font-family: 'Lora', serif;
-    font-weight: 500;
+.main-menu a:hover {
+    color: #ffd700;
 }
 
-p {
-    font-family: 'Lora', serif;
-}
-
-/* Navigation */
-nav {
-    text-align: center;
-    margin: 20px 0;
-}
-
-nav a {
-    text-decoration: none;
-    color: #FFA500;
-    margin: 0 15px;
-    font-weight: bold;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-/* Layout principale */
+/* Layout */
 .posts-layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
-    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
 }
 
-.main-content {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
+/* Posts section */
+.posts-section {
+    width: 100%;
 }
+
 .wide-post {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 12px;
-    font-size: 1.2rem;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
-    max-height: none; /* Rimuovi qualsiasi limite di altezza */
-    overflow: visible; /* Assicurati che il contenuto non venga troncato */
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.posts-layout {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px;
+.wide-post .post-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 1rem 0;
 }
 
-.main-content {
-  grid-column: 1 / 2;
+/* Immagini nei post più piccoli della homepage */
+.column .post-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 1rem 0;
 }
 
-.references {
-  grid-column: 2 / 3;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  align-self: start;
+/* Immagine nella pagina post_detail */
+.post-content .post-image {
+    width: 100%;
+    max-height: 600px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 1rem 0;
 }
 
-/* Due colonne sotto il post largo */
 .columns {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
 }
 
 .column {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Footer */
-footer {
-    font-family: 'Amatic SC', cursive;
-    font-size: 1.8rem;
-    color: #333;
-    text-align: center;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.2);
+/* Sidebar */
+.sidebar {
+    width: 300px;
+}
+
+.references, .instagram-feed {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.instagram-feed {
+    height: 300px;
+    overflow: hidden;
+}
+
+#instagram-container {
+    width: 100%;
+    height: calc(100% - 40px); /* Altura menos o título */
+}
+
+/* Images */
+.post-image {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .posts-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .columns {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .main-menu ul {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+/* Utility classes */
+.read-more {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+.read-more:hover {
+    background-color: #444;
+}
+
+.category-layout {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+}
+
+.category-sidebar {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.archive-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.archive-list li {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.archive-list li:last-child {
+    border-bottom: none;
+}
+
+.post-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.post-date {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.post-excerpt {
+    margin: 1rem 0;
+}
+
+@media (max-width: 576px) {
+    .wide-post .post-image,
+    .column .post-image,
+    .post-content .post-image {
+        max-height: 300px;  /* altezza ridotta per schermi molto piccoli */
+    }
 }

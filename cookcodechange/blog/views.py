@@ -16,12 +16,17 @@ def posts_by_tag(request, tag_name):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
+    # Ottieni i post correlati della stessa categoria, ordinati per data
+    related_posts = Post.objects.filter(category=post.category).exclude(pk=pk).order_by('-created_at')
+    return render(request, 'blog/post_detail.html', {
+        'post': post,
+        'related_posts': related_posts
+    })
 
-def archive(request, section):
-    posts = Post.objects.filter(tags__name=section).order_by('-created_at')
-    return render(request, 'blog/archive.html', {'posts': posts, 'section': section})
 
 def category_posts(request, category):
-    posts = Post.objects.filter(tags__name=category).order_by('-created_at')
-    return render(request, 'blog/category_posts.html', {'posts': posts, 'category': category})
+    posts = Post.objects.filter(category=category).order_by('-created_at')
+    print(f"Found {posts.count()} posts for category {category}")
+    archive = Post.objects.filter(category=category).order_by('created_at')
+    return render(request, 'blog/category_posts.html', {'posts': posts, 'category': category, 'archive': archive})
+        
