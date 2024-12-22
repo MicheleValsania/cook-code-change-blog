@@ -121,6 +121,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
+# Impostazioni per OpenAI
+OPENAI_API_KEY = 'inserisci-qui-la-tua-chiave-api'  # Ricordati di sostituire con la tua chiave API
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

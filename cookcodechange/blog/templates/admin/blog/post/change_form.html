@@ -1,0 +1,118 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+    .seo-analysis {
+        background: #f8f9fa;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 4px;
+    }
+    .seo-score {
+        font-size: 24px;
+        font-weight: bold;
+        color: #28a745;
+    }
+    .seo-suggestions {
+        margin-top: 10px;
+    }
+    .seo-suggestion {
+        padding: 5px 0;
+        color: #666;
+    }
+    .keywords-list {
+        margin-top: 10px;
+    }
+    .keyword {
+        display: inline-block;
+        background: #e9ecef;
+        padding: 2px 8px;
+        margin: 2px;
+        border-radius: 3px;
+    }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const titleField = document.getElementById('id_title');
+    const contentField = document.getElementById('id_content');
+    const seoScoreField = document.getElementById('id_seo_score');
+    const metaDescField = document.getElementById('id_meta_description');
+    const keywordsField = document.getElementById('id_keywords');
+    
+    // Crea il div per l'analisi SEO
+    const seoAnalysisDiv = document.createElement('div');
+    seoAnalysisDiv.className = 'seo-analysis';
+    seoAnalysisDiv.innerHTML = `
+        <h3>Analisi SEO</h3>
+        <div class="seo-score">Punteggio: <span id="seo-score-value">-</span></div>
+        <div class="seo-suggestions" id="seo-suggestions"></div>
+        <div class="keywords-list" id="keywords-list"></div>
+    `;
+    
+    // Inserisci il div dopo il campo del contenuto
+    contentField.parentNode.parentNode.insertBefore(seoAnalysisDiv, contentField.parentNode.nextSibling);
+    
+    function analyzeSEO() {
+        const title = titleField.value;
+        const content = contentField.value;
+        
+        if (!title || !content) return;
+        
+        fetch('/admin/blog/post/analyze-seo/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({ title, content })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Aggiorna il punteggio
+                document.getElementById('seo-score-value').textContent = data.score;
+                seoScoreField.value = data.score;
+                
+                // Aggiorna i suggerimenti
+                const suggestionsHtml = data.suggestions
+                    .map(suggestion => `<div class="seo-suggestion">• ${suggestion}</div>`)
+                    .join('');
+                document.getElementById('seo-suggestions').innerHTML = suggestionsHtml;
+                
+                // Aggiorna le keywords
+                if (data.keywords && data.keywords.length > 0) {
+                    const keywordsHtml = data.keywords
+                        .map(keyword => `<span class="keyword">${keyword}</span>`)
+                        .join('');
+                    document.getElementById('keywords-list').innerHTML = `
+                        <h4>Keywords suggerite:</h4>
+                        ${keywordsHtml}
+                    `;
+                    // Aggiorna il campo keywords se vuoto
+                    if (!keywordsField.value) {
+                        keywordsField.value = data.keywords.join(', ');
+                    }
+                }
+            }
+        })
+        .catch(error => console.error('Errore durante l\'analisi SEO:', error));
+    }
+    
+    // Analizza quando il contenuto cambia
+    let timeout;
+    [titleField, contentField].forEach(field => {
+        field.addEventListener('input', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(analyzeSEO, 1000);
+        });
+    });
+    
+    // Analizza al caricamento se ci sono già contenuti
+    if (titleField.value && contentField.value) {
+        analyzeSEO();
+    }
+});
+</script>
+{% endblock %}
