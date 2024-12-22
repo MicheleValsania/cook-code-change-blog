@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cook Code Change</title>
     <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Dancing+Script:wght@500&family=Lora:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -37,17 +37,15 @@
             <section class="posts-section">
                 {% if posts %}
                     <div class="wide-post">
-                        <div class="article-intro">
-                            <span class="dropcap">{{ posts.0.content|slice:":1" }}</span>
-                            <span class="intro-text">{{ posts.0.content|slice:"1:" }}</span>
-                        </div>
-                        
                         <h2>{{ posts.0.title }}</h2>
                         {% if posts.0.image %}
                             <img src="{{ posts.0.image.url }}" alt="{{ posts.0.title }}" class="post-image">
                         {% endif %}
                         <p><small>{{ posts.0.created_at|date:"F d, Y" }}</small></p>
-                        <p>{{ posts.0.content }}</p>
+                        <div class="article-intro">
+                            <span class="dropcap">{{ posts.0.content|slice:":1" }}</span>
+                            <span class="intro-text">{{ posts.0.content|slice:"1:" }}</span>
+                        </div>
                         <a href="{% url 'post_detail' posts.0.id %}" class="read-more">Read More</a>
                     </div>
 
