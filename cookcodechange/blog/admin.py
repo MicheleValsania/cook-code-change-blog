@@ -22,7 +22,8 @@ class PostAdmin(admin.ModelAdmin):
         }),
         ('SEO', {
             'fields': ('seo_title', 'meta_description', 'keywords', 'seo_score'),
-            'classes': ('collapse',)
+            'classes': ('collapse',),
+            'description': 'Questi campi vengono generati automaticamente ma possono essere modificati manualmente.'
         }),
     )
 
@@ -54,3 +55,23 @@ class PostAdmin(admin.ModelAdmin):
                 'success': False,
                 'error': 'Errore durante l\'analisi SEO'
             })
+
+    def save_model(self, request, obj, form, change):
+        if not change:  # Solo per nuovi post
+            seo = SEOAnalyzer()
+            
+            # Genera meta description se non specificata
+            if not obj.meta_description:
+                obj.meta_description = seo.generate_meta_description(obj.content)
+            
+            # Analizza il contenuto per il punteggio SEO
+            analysis = seo.analyze_content(obj.title, obj.content)
+            
+            # Imposta il punteggio SEO
+            obj.seo_score = analysis.get('score', 0)
+            
+            # Imposta le keywords se non specificate
+            if not obj.keywords:
+                obj.keywords = ', '.join(analysis.get('keywords', []))
+        
+        super().save_model(request, obj, form, change)

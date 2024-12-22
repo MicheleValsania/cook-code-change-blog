@@ -8,57 +8,143 @@
         background: #f8f9fa;
         padding: 15px;
         margin: 10px 0;
+        border: 1px solid #ddd;
         border-radius: 4px;
     }
     .seo-score {
         font-size: 24px;
         font-weight: bold;
-        color: #28a745;
+        margin-bottom: 15px;
     }
+    .seo-score.good { color: #28a745; }
+    .seo-score.medium { color: #ffc107; }
+    .seo-score.poor { color: #dc3545; }
     .seo-suggestions {
-        margin-top: 10px;
+        margin-top: 15px;
     }
     .seo-suggestion {
-        padding: 5px 0;
-        color: #666;
+        padding: 8px;
+        margin: 5px 0;
+        background: #fff;
+        border-left: 4px solid #ffc107;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     .keywords-list {
-        margin-top: 10px;
+        margin-top: 15px;
     }
     .keyword {
         display: inline-block;
         background: #e9ecef;
-        padding: 2px 8px;
-        margin: 2px;
-        border-radius: 3px;
+        padding: 4px 10px;
+        margin: 3px;
+        border-radius: 15px;
+        font-size: 0.9em;
+    }
+    #seo-debug {
+        margin-top: 10px;
+        padding: 10px;
+        background: #f8d7da;
+        border: 1px solid #f5c6cb;
+        display: none;
     }
 </style>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Trova i campi del form
     const titleField = document.getElementById('id_title');
     const contentField = document.getElementById('id_content');
-    const seoScoreField = document.getElementById('id_seo_score');
+    const seoTitleField = document.getElementById('id_seo_title');
     const metaDescField = document.getElementById('id_meta_description');
     const keywordsField = document.getElementById('id_keywords');
+    const seoScoreField = document.getElementById('id_seo_score');
     
     // Crea il div per l'analisi SEO
     const seoAnalysisDiv = document.createElement('div');
     seoAnalysisDiv.className = 'seo-analysis';
     seoAnalysisDiv.innerHTML = `
-        <h3>Analisi SEO</h3>
+        <h3>Analisi SEO in Tempo Reale</h3>
         <div class="seo-score">Punteggio: <span id="seo-score-value">-</span></div>
-        <div class="seo-suggestions" id="seo-suggestions"></div>
+        <div class="seo-suggestions" id="seo-suggestions">
+            <em>Inizia a scrivere per vedere i suggerimenti...</em>
+        </div>
         <div class="keywords-list" id="keywords-list"></div>
+        <div id="seo-debug"></div>
     `;
     
     // Inserisci il div dopo il campo del contenuto
-    contentField.parentNode.parentNode.insertBefore(seoAnalysisDiv, contentField.parentNode.nextSibling);
+    if (contentField) {
+        const parentFieldset = contentField.closest('fieldset');
+        if (parentFieldset) {
+            parentFieldset.appendChild(seoAnalysisDiv);
+        }
+    }
+    
+    function showDebug(message) {
+        const debugDiv = document.getElementById('seo-debug');
+        if (debugDiv) {
+            debugDiv.style.display = 'block';
+            debugDiv.innerHTML += `<div>${message}</div>`;
+        }
+    }
+    
+    function updateSeoFields(data) {
+        // Aggiorna il punteggio SEO
+        const scoreElement = document.getElementById('seo-score-value');
+        if (scoreElement) {
+            const score = data.score || 0;
+            scoreElement.textContent = score;
+            scoreElement.className = score >= 80 ? 'good' : score >= 60 ? 'medium' : 'poor';
+        }
+
+        // Aggiorna il campo seo_score se esiste
+        if (seoScoreField) {
+            seoScoreField.value = data.score || 0;
+        }
+
+        // Aggiorna i suggerimenti
+        const suggestionsDiv = document.getElementById('seo-suggestions');
+        if (suggestionsDiv) {
+            const suggestionsHtml = data.suggestions && data.suggestions.length > 0
+                ? data.suggestions.map(suggestion => 
+                    `<div class="seo-suggestion">📝 ${suggestion}</div>`
+                  ).join('')
+                : '<div class="seo-suggestion">✅ Ottimo lavoro! Nessun suggerimento necessario.</div>';
+            suggestionsDiv.innerHTML = suggestionsHtml;
+        }
+
+        // Aggiorna le keywords
+        if (data.keywords && data.keywords.length > 0) {
+            const keywordsHtml = data.keywords
+                .map(keyword => `<span class="keyword">🏷️ ${keyword}</span>`)
+                .join('');
+            const keywordsDiv = document.getElementById('keywords-list');
+            if (keywordsDiv) {
+                keywordsDiv.innerHTML = `
+                    <h4>Keywords rilevate:</h4>
+                    ${keywordsHtml}
+                `;
+            }
+
+            // Aggiorna il campo keywords se esiste ed è vuoto
+            if (keywordsField && !keywordsField.value) {
+                keywordsField.value = data.keywords.join(', ');
+            }
+        }
+    }
     
     function analyzeSEO() {
-        const title = titleField.value;
-        const content = contentField.value;
+        const title = titleField ? titleField.value : '';
+        const content = contentField ? contentField.value : '';
         
-        if (!title || !content) return;
+        if (!title && !content) {
+            const suggestionsDiv = document.getElementById('seo-suggestions');
+            if (suggestionsDiv) {
+                suggestionsDiv.innerHTML = '<em>Inizia a scrivere per vedere i suggerimenti...</em>';
+            }
+            return;
+        }
+        
+        showDebug(`Analyzing - Title: ${title.length} chars, Content: ${content.length} chars`);
         
         fetch('/admin/blog/post/analyze-seo/', {
             method: 'POST',
@@ -68,49 +154,43 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify({ title, content })
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
+            showDebug('Received response: ' + JSON.stringify(data));
             if (data.success) {
-                // Aggiorna il punteggio
-                document.getElementById('seo-score-value').textContent = data.score;
-                seoScoreField.value = data.score;
-                
-                // Aggiorna i suggerimenti
-                const suggestionsHtml = data.suggestions
-                    .map(suggestion => `<div class="seo-suggestion">• ${suggestion}</div>`)
-                    .join('');
-                document.getElementById('seo-suggestions').innerHTML = suggestionsHtml;
-                
-                // Aggiorna le keywords
-                if (data.keywords && data.keywords.length > 0) {
-                    const keywordsHtml = data.keywords
-                        .map(keyword => `<span class="keyword">${keyword}</span>`)
-                        .join('');
-                    document.getElementById('keywords-list').innerHTML = `
-                        <h4>Keywords suggerite:</h4>
-                        ${keywordsHtml}
-                    `;
-                    // Aggiorna il campo keywords se vuoto
-                    if (!keywordsField.value) {
-                        keywordsField.value = data.keywords.join(', ');
-                    }
-                }
+                updateSeoFields(data);
+            } else {
+                showDebug('Analysis failed: ' + data.error);
             }
         })
-        .catch(error => console.error('Errore durante l\'analisi SEO:', error));
+        .catch(error => {
+            showDebug('Error during analysis: ' + error.message);
+            console.error('Errore durante l\'analisi SEO:', error);
+        });
     }
     
-    // Analizza quando il contenuto cambia
+    // Analizza quando il contenuto cambia (con debounce)
     let timeout;
     [titleField, contentField].forEach(field => {
-        field.addEventListener('input', () => {
-            clearTimeout(timeout);
-            timeout = setTimeout(analyzeSEO, 1000);
-        });
+        if (field) {
+            field.addEventListener('input', () => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => {
+                    showDebug('Input changed, triggering analysis...');
+                    analyzeSEO();
+                }, 1000);
+            });
+        }
     });
     
     // Analizza al caricamento se ci sono già contenuti
-    if (titleField.value && contentField.value) {
+    if ((titleField && titleField.value) || (contentField && contentField.value)) {
+        showDebug('Initial content found, triggering analysis...');
         analyzeSEO();
     }
 });
