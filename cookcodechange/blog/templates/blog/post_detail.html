@@ -1,13 +1,24 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ category }} - Cook Code Change</title>
-    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ post.title }} - Cook Code Change</title>
+        {% if post.meta_description %}
+        <meta name="description" content="{{ post.meta_description }}">
+        {% endif %}
+        {% if post.keywords %}
+        <meta name="keywords" content="{{ post.keywords }}">
+        {% endif %}
+        {% if post.seo_title %}
+        <meta property="og:title" content="{{ post.seo_title }}">
+        {% else %}
+        <meta property="og:title" content="{{ post.title }}">
+        {% endif %}
+        <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    </head>
 <body>
     <header class="blog-header internal-header">
         <div class="header-content">

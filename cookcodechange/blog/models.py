@@ -35,39 +35,50 @@ class Post(models.Model):
         ordering = ['-created_at']
 
     def save(self, *args, **kwargs):
-        if not self.pk:  
+        print("Starting save method...")
+        if not self.pk:  # Nuovo post
+            print(f"New post detected - Title: {self.title}")
+            
             if not self.meta_description:
                 self.meta_description = self.content[:157] + "..." if len(self.content) > 160 else self.content
+                print(f"Generated meta description: {self.meta_description}")
                 
             if not self.keywords:
-                # Qui inseriamo il nuovo codice
                 words = [w.strip('.,!?()[]{}') for w in self.content.lower().split()]
                 words = [w for w in words if len(w) > 3 and w.isalnum()]
                 word_freq = {}
                 for word in words:
                     word_freq[word] = word_freq.get(word, 0) + 1
                 self.keywords = ', '.join(sorted(word_freq, key=word_freq.get, reverse=True)[:5])
+                print(f"Generated keywords: {self.keywords}")
             
-            self.seo_score = self._calculate_seo_score()
+            score = self._calculate_seo_score()
+            print(f"Calculated SEO score: {score}")
+            self.seo_score = score
         
         super().save(*args, **kwargs)
 
     def _calculate_seo_score(self):
+        print("Calculating SEO score...")
         score = 70
+        print(f"Initial score: {score}")
         
-        # Title checks
         if 20 <= len(self.title) <= 60:
             score += 10
-        if any(keyword in self.title.lower() for keyword in self.keywords.split(',')):
-            score += 5
+            print(f"Title length bonus: +10")
             
-        # Content checks    
+        if self.keywords and any(keyword in self.title.lower() for keyword in self.keywords.split(',')):
+            score += 5
+            print(f"Keyword in title bonus: +5")
+            
         word_count = len(self.content.split())
         if word_count > 300:
             score += 10
+            print(f"Content length bonus: +10")
         
-        # Meta description
         if self.meta_description and 50 <= len(self.meta_description) <= 160:
             score += 5
-            
+            print(f"Meta description bonus: +5")
+        
+        print(f"Final score: {score}")
         return min(100, score)

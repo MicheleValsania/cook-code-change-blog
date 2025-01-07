@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.http import JsonResponse
 from django.urls import path
 from .models import Post, Tag
-from .seo_analyzer import SEOAnalyzer
+import json
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
@@ -34,44 +34,34 @@ class PostAdmin(admin.ModelAdmin):
         ]
         return custom_urls + urls
 
+    def save_model(self, request, obj, form, change):
+        print("AdminModel: Starting save_model...")
+        super().save_model(request, obj, form, change)
+        print("AdminModel: save_model completed")
+
     def analyze_seo_view(self, request):
         if request.method == 'POST':
-            import json
-            data = json.loads(request.body)
-            title = data.get('title', '')
-            content = data.get('content', '')
-
-            seo = SEOAnalyzer()
-            analysis = seo.analyze_content(title, content)
-
-            if analysis['success']:
+            try:
+                print("AdminModel: Starting analyze_seo_view...")
+                data = json.loads(request.body)
+                title = data.get('title', '')
+                content = data.get('content', '')
+                
+                # Creiamo un oggetto Post temporaneo per usare i suoi metodi
+                temp_post = Post(title=title, content=content)
+                score = temp_post._calculate_seo_score()
+                
                 return JsonResponse({
                     'success': True,
-                    'score': analysis.get('seo_score', 70),
-                    'suggestions': analysis.get('analysis', '').split('\n')
+                    'score': score,
+                    'suggestions': [
+                        f'Lunghezza titolo: {len(title)} caratteri',
+                        f'Lunghezza contenuto: {len(content.split())} parole'
+                    ]
                 })
-            
-            return JsonResponse({
-                'success': False,
-                'error': 'Errore durante l\'analisi SEO'
-            })
-
-    def save_model(self, request, obj, form, change):
-        if not change:  # Solo per nuovi post
-            seo = SEOAnalyzer()
-            
-            # Genera meta description se non specificata
-            if not obj.meta_description:
-                obj.meta_description = seo.generate_meta_description(obj.content)
-            
-            # Analizza il contenuto per il punteggio SEO
-            analysis = seo.analyze_content(obj.title, obj.content)
-            
-            # Imposta il punteggio SEO
-            obj.seo_score = analysis.get('score', 0)
-            
-            # Imposta le keywords se non specificate
-            if not obj.keywords:
-                obj.keywords = ', '.join(analysis.get('keywords', []))
-        
-        super().save_model(request, obj, form, change)
+            except Exception as e:
+                print(f"AdminModel Error: {str(e)}")
+                return JsonResponse({
+                    'success': False, 
+                    'error': str(e)
+                }, status=400)
