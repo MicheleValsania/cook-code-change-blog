@@ -1,11 +1,17 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render
-from .models import Post, Tag
+from .models import Post, Tag, Resource
+
 
 def homepage(request):
-    # Retrieve the 5 most recent posts
+    # Retrieve both posts and resources
     posts = Post.objects.all().order_by('-created_at')[:3]
-    return render(request, 'blog/homepage.html', {'posts': posts})
+    resources = Resource.objects.all()
+    return render(request, 'blog/homepage.html', {
+        'posts': posts,
+        'resources': resources
+    })
+
 
 
 def posts_by_tag(request, tag_name):

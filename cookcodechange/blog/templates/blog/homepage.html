@@ -74,11 +74,14 @@
             <div class="references">
                 <h2>Resources</h2>
                 <ul>
-                    <li><a href="https://www.djangoproject.com/">Django Documentation</a> - Tools for web development</li>
-                    <li><a href="https://realpython.com/">Real Python</a> - Python tutorials and tips</li>
-                    <li><a href="#">BeautifulSoup Guide</a> - Learn web scraping effectively</li>
+                    {% for resource in resources %}
+                        <li>
+                            <a href="{{ resource.url }}">{{ resource.title }}</a> - {{ resource.description }}
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
+            
 
             <div class="instagram-feed">
                 <h2>My Hidden Provence</h2>

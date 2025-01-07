@@ -21,7 +21,7 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, related_name='posts', blank=True)  # Relazione con i tag
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Cook')
     image = models.ImageField(upload_to='posts/', null=True, blank=True)
-    
+    objects = models.Manager()
     # Campi SEO
     seo_title = models.CharField(max_length=60, blank=True, help_text="Titolo ottimizzato per i motori di ricerca (max 60 caratteri)")
     meta_description = models.CharField(max_length=160, blank=True, help_text="Descrizione che apparirà nei risultati di ricerca (max 160 caratteri)")
@@ -82,3 +82,12 @@ class Post(models.Model):
         
         print(f"Final score: {score}")
         return min(100, score)
+    
+
+class Resource(models.Model):
+    title = models.CharField(max_length=100)
+    url = models.URLField()
+    description = models.TextField(blank=True)
+    objects = models.Manager() 
+    def __str__(self) -> str:
+        return self.title
