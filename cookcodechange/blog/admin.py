@@ -2,12 +2,18 @@ from django.contrib import admin
 from django.http import JsonResponse
 from django.urls import path
 from .models import Post, Tag
+from .models import Resource
 import json
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
+
+@admin.register(Resource)
+class ResourceAdmin(admin.ModelAdmin):
+    list_display = ('title', 'url')
+    search_fields = ('title',)
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
