@@ -314,3 +314,14 @@ body {
         max-height: 300px;  /* altezza ridotta per schermi molto piccoli */
     }
 }
+
+.footer {
+    background: #4a4a4a;
+    font-family: "Dancing Script", cursive;
+    font-size: 30px;
+    color: white;
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+  
+}
