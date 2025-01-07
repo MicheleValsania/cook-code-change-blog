@@ -169,26 +169,63 @@ body {
 /* Sidebar */
 .sidebar {
     width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-.references, .instagram-feed {
-    background: white;
+.references h2{
+    flex: 1;
+    font-family: 'Dancing Script';
+    font-size: 1.5rem;
+    background: rgb(250, 231, 189);
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.references li {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
 }
 
 .instagram-feed {
-    height: 300px;
-    overflow: hidden;
+    font-family: 'Dancing Script';
+    font-size: 1.5rem;
+    height: 400px;
+    background: rgb(211, 197, 118);
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 #instagram-container {
-    width: 100%;
-    height: calc(100% - 40px); /* Altura menos o título */
+    height: 350px;
+    position: relative;
 }
 
+.instagram-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.instagram-item.active {
+    opacity: 1;
+}
+
+.instagram-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
 /* Images */
 .post-image {
     width: 100%;
@@ -307,10 +344,3 @@ body {
     background-position: 0px 100%;
 }
 
-@media (max-width: 576px) {
-    .wide-post .post-image,
-    .column .post-image,
-    .post-content .post-image {
-        max-height: 300px;  /* altezza ridotta per schermi molto piccoli */
-    }
-}
