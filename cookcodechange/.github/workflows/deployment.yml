@@ -1,0 +1,9 @@
+name: Deploy to IONOS
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test
+        run: echo "Workflow is running"
