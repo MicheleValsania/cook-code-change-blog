@@ -195,7 +195,7 @@ body {
     font-family: 'Dancing Script';
     font-size: 1.5rem;
     height: 400px;
-    background: rgb(211, 197, 118);
+    background: rgb(250, 231, 189);
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -344,7 +344,6 @@ body {
     background-position: 0px 100%;
 }
 
-<<<<<<< HEAD
 @media (max-width: 576px) {
     .wide-post .post-image,
     .column .post-image,
@@ -363,5 +362,3 @@ body {
     padding: 1rem;
   
 }
-=======
->>>>>>> feature/resource-menu
