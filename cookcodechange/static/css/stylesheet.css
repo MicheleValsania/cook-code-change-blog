@@ -362,3 +362,33 @@ body {
     padding: 1rem;
   
 }
+
+
+/* Aggiungi questo al tuo file CSS */
+.dropcap {
+    float: left;
+    font-size: 4.5em;
+    line-height: 0.8;
+    padding-right: 0.2em;
+    margin-top: 0.1em;
+    font-family: 'Source Serif Pro', serif;
+    font-weight: bold;
+}
+
+.article-intro {
+    overflow: hidden; /* Per gestire il float del dropcap */
+}
+
+.intro-text {
+    display: block;
+    margin-top: 0.3em;
+}
+
+/* Assicurati che il contenuto HTML sia formattato correttamente */
+.intro-text p {
+    margin: 1em 0;
+}
+
+.intro-text p:first-of-type {
+    margin-top: 0;
+}

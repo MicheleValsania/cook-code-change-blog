@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'django_ckeditor_5', 
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,32 @@ TEMPLATES = [
         },
     },
 ]
+
+CKEDITOR_5_CONFIGS = {
+    'default': {
+        'toolbar': [
+            'heading', '|', 
+            'bold', 'italic', 'link', 'bulletedList', 'numberedList', 
+            'blockQuote', 'imageUpload', '|',
+            'undo', 'redo'
+        ],
+        'height': '400px',
+        'removePlugins': ['Title'],
+        'contentsCss': ['body { font-family: \'Source Serif Pro\', serif; }'],
+        'heading': {
+            'options': [
+                { 'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph' },
+                { 'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1' },
+                { 'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2' },
+                { 'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3' }
+            ]
+        },
+        'allowedContent': True,
+        'entities': False,
+        'format_tags': 'p;h1;h2;h3;pre',
+    }
+}
+
 
 WSGI_APPLICATION = 'cookcodechange.wsgi.application'
 
@@ -120,6 +147,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 
 # Impostazioni per OpenAI
 OPENAI_API_KEY = 'inserisci-qui-la-tua-chiave-api'  # Ricordati di sostituire con la tua chiave API
@@ -128,3 +156,7 @@ OPENAI_API_KEY = 'inserisci-qui-la-tua-chiave-api'  # Ricordati di sostituire co
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+CKEDITOR_5_UPLOAD_PATH = "uploads/"
