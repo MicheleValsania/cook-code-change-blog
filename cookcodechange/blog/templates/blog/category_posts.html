@@ -56,8 +56,8 @@
                             {% if post.image %}
                                 <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
                             {% endif %}
-                            <p class="post-date">{{ post.created_at|date:"F d, Y" }}</p>
-                            <p class="post-excerpt">{{ post.content|truncatewords:30 }}</p>
+                            <p class="post-date">{{ post.created_at|safe|date:"F d, Y" }}</p>
+                            <p class="post-excerpt">{{ post.content|safe|truncatewords:30 }}</p>
                             <a href="{% url 'post_detail' post.id %}" class="read-more">Read More</a>
                         </article>
                     {% endfor %}

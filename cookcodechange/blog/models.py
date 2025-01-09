@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django_ckeditor_5.fields import CKEditor5Field
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)  # Nome univoco del tag
@@ -15,7 +16,7 @@ class Post(models.Model):
         ('Change', 'Change'),
     ]
     title = models.CharField(max_length=200)  # Titolo del post
-    content = models.TextField()  # Contenuto del post
+    content = CKEditor5Field('Content', config_name='default')  # Contenuto del post
     created_at = models.DateTimeField(default=timezone.now)  # Data di creazione
     updated_at = models.DateTimeField(auto_now=True)  # Data di aggiornamento
     tags = models.ManyToManyField(Tag, related_name='posts', blank=True)  # Relazione con i tag
