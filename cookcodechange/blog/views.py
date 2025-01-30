@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render
 from .models import Post, Tag, Resource
-
+import logging
+logger = logging.getLogger('django')
 
 def homepage(request):
+    logger.debug('Testing debug log')
+    logger.error('Testing error log')
     # Retrieve both posts and resources
     posts = Post.objects.all().order_by('-created_at')[:3]
     resources = Resource.objects.all()
