@@ -1,0 +1,103 @@
+# Cook Code Change
+
+Un projet web personnel qui unit les passions pour la cuisine, la programmation et le changement personnel.
+
+## Vue d'ensemble
+
+Cook Code Change est un site web construit avec Django qui sert de plateforme personnelle multi-facettes :
+- Une landing page minimaliste qui introduit les trois aspects principaux du projet
+- Un portfolio professionnel présentant mon expérience de chef
+- Un blog explorant les intersections entre cuisine, technologie et développement personnel
+
+## Structure du Projet
+
+```
+cookcodechange/
+├── blog/               # Application principale du blog
+├── portfolio/          # Application du portfolio chef
+├── static/            # Fichiers statiques (CSS, JS, images)
+├── templates/         # Templates HTML
+└── media/            # Médias uploadés
+```
+
+## Technologies Utilisées
+
+- Django 5.1.3
+- Python 3.x
+- HTML5/CSS3
+- JavaScript
+- CKEditor 5
+- Font Awesome
+- Google Fonts
+
+## Caractéristiques Principales
+
+- Landing page interactive avec effets CSS
+- Système de blog avec catégories thématiques
+- Portfolio chef avec galerie de projets
+- Éditeur WYSIWYG pour les articles
+- Design responsive
+- Optimisation SEO
+- Intégration Instagram
+
+## Installation
+
+1. Cloner le dépôt
+```bash
+git clone [URL_repository]
+```
+
+2. Installer les dépendances
+```bash
+pip install -r requirements.txt
+```
+
+3. Exécuter les migrations
+```bash
+python manage.py migrate
+```
+
+4. Lancer le serveur de développement
+```bash
+python manage.py runserver
+```
+
+## Structure du Blog
+
+Le blog est organisé en trois catégories principales :
+- **Cook** : Articles sur la cuisine et l'art culinaire
+- **Code** : Posts sur la programmation et la technologie
+- **Change** : Réflexions sur le changement et le développement personnel
+
+## Contribuer
+
+C'est un projet personnel, mais les suggestions et retours sont toujours les bienvenus.
+
+## Licence
+
+
+MIT License
+
+Copyright (c) 2024 Michele Valsania
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## Contact
+
+[Vos coordonnées]
