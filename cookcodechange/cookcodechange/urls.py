@@ -20,9 +20,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),  # Include le URL dell'app blog
     path('ckeditor5/', include('django_ckeditor_5.urls')),
+    path('MicheleValsania/', include('portfolio.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
