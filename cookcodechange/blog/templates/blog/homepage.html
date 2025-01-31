@@ -42,13 +42,12 @@
                 {% if posts %}
                     <div class="wide-post">
                         <h2>{{ posts.0.title }}</h2>
-                        {% if posts.0.image %}
-                            <img src="{{ posts.0.image.url }}" alt="{{ posts.0.title }}" class="post-image">
-                        {% endif %}
                         <p><small>{{ posts.0.created_at|date:"F d, Y" }}</small></p>
-                        <div class="article-intro">
-                            <span class="dropcap">{{ posts.0.content|first_letter_content }}</span>
-                            <span class="intro-text">{{ posts.0.content|remaining_content }}</span>
+                        <div class="article-content">
+                            {% if posts.0.image %}
+                                <img src="{{ posts.0.image.url }}" alt="{{ posts.0.title }}" class="post-image">
+                            {% endif %}
+                            {{ posts.0.content|safe }}
                         </div>
                         <a href="{% url 'post_detail' posts.0.id %}" class="read-more">Read More</a>
                     </div>
