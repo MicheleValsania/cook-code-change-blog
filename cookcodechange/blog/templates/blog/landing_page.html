@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michele Valsania</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Dancing+Script:wght@500&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+
+        .container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .content {
+            text-align: center;
+            position: relative;
+        }
+
+        .main-title {
+            font-family: 'Amatic SC', sans-serif;
+            font-size: 5rem;
+            letter-spacing: 0.07em;
+            margin-bottom: 4rem;
+            position: relative;
+            text-shadow: 7px 5px 7px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (min-width: 768px) {
+            .main-title {
+                font-size: 8rem;
+            }
+        }
+
+        .word-container {
+            display: inline-block;
+            position: relative;
+            margin: 0 1rem;
+            text-decoration: none;
+        }
+
+        .main-word {
+            position: relative;
+            cursor: pointer;
+            transition: color 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .cook {
+            color: #b87333;
+        }
+
+        .code {
+            color: #606060;
+        }
+
+        .change {
+            background: -webkit-linear-gradient(#606060, #b87333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            opacity: 0;
+            transition: all 0.5s ease;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .cook .subtitle {
+            color: #b87333;
+        }
+
+        .code .subtitle {
+            color: #606060;
+        }
+
+        .change .subtitle {
+            color: #909090;
+        }
+
+        .word-container:hover .subtitle {
+            opacity: 1;
+            transform: translateX(-50%) translateY(20px);
+        }
+
+        /* Blog link */
+        .blog-link {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #333;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 6rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .blog-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, #b87333, #606060);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        footer {
+            padding: 2rem;
+            text-align: center;
+            font-family: 'Source Serif Pro', serif;
+            font-size: 0.875rem;
+            color: #666;
+            letter-spacing: 0.1em;
+        }
+
+        /* Icon animations */
+        .icon {
+            transition: transform 0.3s ease;
+        }
+
+        .word-container:hover .icon {
+            transform: rotate(360deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1 class="main-title">
+                <a href="/chef" class="word-container">
+                    <span class="main-word cook">
+                        <i class="fas fa-utensils icon"></i>
+                        Cook
+                    </span>
+                    <span class="subtitle">Le Chef</span>
+                </a>
+                <a href="/developer" class="word-container">
+                    <span class="main-word code">
+                        <i class="fas fa-code icon"></i>
+                        Code
+                    </span>
+                    <span class="subtitle">Le Codeur</span>
+                </a>
+                <a href="/explorer" class="word-container">
+                    <span class="main-word change">
+                        <i class="fas fa-sync-alt icon"></i>
+                        Change
+                    </span>
+                    <span class="subtitle">L'Explorateur</span>
+                </a>
+            </h1>
+            <a href="/blog" class="blog-link">Le Blog</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>MICHELE VALSANIA • <span id="year"></span></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('loaded');
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

@@ -45,9 +45,11 @@
                         <p><small>{{ posts.0.created_at|date:"F d, Y" }}</small></p>
                         <div class="article-content">
                             {% if posts.0.image %}
-                                <img src="{{ posts.0.image.url }}" alt="{{ posts.0.title }}" class="post-image">
+                                <div class="post-image-container">
+                                    <img src="{{ posts.0.image.url }}" alt="{{ posts.0.title }}" class="post-image">
+                                </div>
                             {% endif %}
-                            {{ posts.0.content|safe }}
+                            {{ posts.0.content|safe|truncatewords_html:200 }}
                         </div>
                         <a href="{% url 'post_detail' posts.0.id %}" class="read-more">Read More</a>
                     </div>
@@ -56,11 +58,15 @@
                         {% for post in posts|slice:"1:3" %}
                             <div class="column">
                                 <h2>{{ post.title }}</h2>
-                                {% if post.image %}
-                                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
-                                {% endif %}
                                 <p><small>{{ post.created_at|date:"F d, Y" }}</small></p>
-                                <p>{{ post.content|truncatewords:60 }}</p>
+                                {% if post.image %}
+                                    <div class="post-image-container">
+                                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+                                    </div>
+                                {% endif %}
+                                <div class="article-content">
+                                    {{ post.content|safe|truncatewords_html:60 }}
+                                </div>
                                 <a href="{% url 'post_detail' post.id %}" class="read-more">Read More</a>
                             </div>
                         {% endfor %}
@@ -73,7 +79,7 @@
 
         <aside class="sidebar">
             <div class="references">
-                <h2>Resources</h2>
+                <h2>Ressources</h2>
                 <ul>
                     {% for resource in resources %}
                         <li>

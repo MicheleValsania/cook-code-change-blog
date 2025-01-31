@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.http import JsonResponse
 from django.urls import path
-from .models import Post, Tag
-from .models import Resource
+from .models import Post, Tag, Resource
 import json
 
 @admin.register(Tag)
@@ -17,14 +16,14 @@ class ResourceAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at', 'updated_at', 'seo_score')
-    list_filter = ('tags', 'created_at')
+    list_display = ('title', 'category', 'created_at', 'updated_at', 'seo_score')
+    list_filter = ('category', 'tags', 'created_at')
     search_fields = ('title', 'content')
     filter_horizontal = ('tags',)
     readonly_fields = ('seo_score',)
     fieldsets = (
         (None, {
-            'fields': ('title', 'content', 'image', 'tags')
+            'fields': ('title', 'content', 'category', 'image', 'tags')
         }),
         ('SEO', {
             'fields': ('seo_title', 'meta_description', 'keywords', 'seo_score'),
