@@ -35,7 +35,7 @@
         .about-header {
             height: 40vh;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                        url("{% static 'portfolio/images/avatar.png' %}");
+                        url("{% static 'portfolio/images/ricciola.JPG' %}");
             background-position: center;
             background-size: cover;
             color: white;
@@ -73,14 +73,26 @@
             padding: 3rem 0;
             margin: 3rem 0;
         }
+        .chef-video {
+        max-width: 300px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        margin: 2rem auto;
+        display: block;
+    }
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'landing' %}">
                 <img src="{% static 'portfolio/images/avatar.png' %}" alt="Chef Valsania">
+                <span class="ms-2" style="font-family: 'Amatic SC', sans-serif;">
+                    <span style="color: #b87333;">Cook</span>
+                    <span style="color: #606060;">Code</span>
+                    <span style="background: -webkit-linear-gradient(#606060, #b87333); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Change</span>
+                </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -88,22 +100,22 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'portfolio' %}">Accueil</a>
+                        <a class="nav-link" href="{% url 'portfolio:portfolio' %}">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'portfolio' %}#realisations">Réalisations</a>
+                        <a class="nav-link" href="{% url 'portfolio:portfolio' %}#realisations">Réalisations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'portfolio' %}#parcours">Parcours</a>
+                        <a class="nav-link" href="{% url 'portfolio:portfolio' %}#parcours">Parcours</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'gallery' %}">Galerie</a>
+                        <a class="nav-link" href="{% url 'portfolio:gallery' %}">Galerie</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{% url 'about' %}">Mon Parcours</a>
+                        <a class="nav-link active" href="{% url 'portfolio:about' %}">About me</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'portfolio' %}#contact">Contact</a>
+                        <a class="nav-link" href="{% url 'portfolio:portfolio' %}#contact">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -121,8 +133,7 @@
     <!-- Main Content -->
     <main class="about-content">
         <div class="container">
-            <img src="{% static 'portfolio/images/avatar.png' %}" alt="Chef Michele Valsania" class="chef-image">
-            
+           
             <p class="quote">"La cuisine est un art qui se nourrit de tradition et d'innovation"</p>
 
             <section>
@@ -143,7 +154,12 @@
                     </ul>
                 </div>
             </section>
-
+            <section>
+                <video class="chef-video" controls>
+                    <source src="{% static 'portfolio/videos/gravalax.mp4' %}" type="video/mp4">
+                    Il tuo browser non supporta il tag video.
+                </video></section>section>
+            </section>
             <section>
                 <h2>Formation Continue</h2>
                 <p>Ma curiosité pour la science culinaire m'a conduit à suivre le programme "Science & Cooking" de Harvard University, une expérience qui a enrichi ma compréhension des processus culinaires et m'a permis d'affiner mes techniques.</p>
