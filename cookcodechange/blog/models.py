@@ -11,16 +11,16 @@ class Tag(models.Model):
 class Post(models.Model):
 
     CATEGORY_CHOICES = [
-        ('Cook', 'Cook'),
-        ('Code', 'Code'),
-        ('Change', 'Change'),
+        ('VENTRE', 'Ventre'),
+        ('TETE', 'Tête'),
+        ('COEUR', 'Coeur'),
     ]
     title = models.CharField(max_length=200)  # Titolo del post
     content = CKEditor5Field('Content', config_name='default')  # Contenuto del post
     created_at = models.DateTimeField(default=timezone.now)  # Data di creazione
     updated_at = models.DateTimeField(auto_now=True)  # Data di aggiornamento
     tags = models.ManyToManyField(Tag, related_name='posts', blank=True)  # Relazione con i tag
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='Cook')
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='VENTRE')
     image = models.ImageField(upload_to='posts/', null=True, blank=True)
     objects = models.Manager()
     # Campi SEO
@@ -92,3 +92,23 @@ class Resource(models.Model):
     objects = models.Manager() 
     def __str__(self) -> str:
         return self.title
+
+
+class StaticPage(models.Model):
+    PAGE_CHOICES = [
+        ('CODEUR', 'Le Codeur'),
+        ('EXPLORATEUR', 'L\'Explorateur'),
+    ]
+    
+    title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=200, blank=True)
+    content = CKEditor5Field('Content', config_name='default')
+    page_type = models.CharField(max_length=20, choices=PAGE_CHOICES, unique=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"{self.get_page_type_display()}"
+
+    class Meta:
+        verbose_name = "Page statique"
+        verbose_name_plural = "Pages statiques"

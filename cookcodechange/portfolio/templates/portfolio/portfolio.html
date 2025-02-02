@@ -131,14 +131,32 @@
             padding: 2rem 0;
             margin-top: 3rem;
         }
+        .navbar-brand {
+            text-decoration: none;
+        }
+
+        .navbar-brand span {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .navbar-brand:hover span {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'portfolio' %}">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'landing' %}">
                 <img src="{% static 'portfolio/images/avatar.png' %}" alt="Chef Valsania">
+                <span class="ms-2" style="font-family: 'Amatic SC', sans-serif;">
+                    <span style="color: #b87333;">Cook</span>
+                    <span style="color: #606060;">Code</span>
+                    <span style="background: -webkit-linear-gradient(#606060, #b87333); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Change</span>
+                </span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -155,10 +173,10 @@
                         <a class="nav-link" href="#parcours">Parcours</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'gallery' %}">Galerie</a>
+                        <a class="nav-link" href="{% url 'portfolio:gallery' %}">Galerie</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">Mon Parcours</a>
+                        <a class="nav-link" href="{% url 'portfolio:about' %}">About me</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact">Contact</a>
@@ -166,6 +184,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% static 'portfolio/cv/CV_Michele_Valsania.pdf' %}" target="_blank" aria-label="Télécharger le CV (s'ouvre dans une nouvelle fenêtre)">
                             <i class="fas fa-download me-1"></i>CV
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'homepage' %}">
+                            <i class="fas fa-blog me-1"></i>Le Blog
                         </a>
                     </li>
                 </ul>
@@ -318,7 +341,7 @@
             <div class="col-md-6 mx-auto">
                 <div class="certification-badge">
                     <h5>
-                        <a href="{% static 'portfolio/cv/Certificate_edX.pdf' %}" target="_blank" class="text-decoration-none text-dark" aria-label="Voir le certificat Harvard (s'ouvre dans une nouvelle fenêtre)">
+                        <a href="{% static 'portfolio/cv/Certificate _ edX.pdf' %}" target="_blank" class="text-decoration-none text-dark" aria-label="Voir le certificat Harvard (s'ouvre dans une nouvelle fenêtre)">
                             Harvard University <i class="fas fa-external-link-alt ms-2" style="font-size: 0.8em;"></i>
                         </a>
                     </h5>
@@ -336,8 +359,11 @@
     <section id="contact" class="bg-light py-5">
         <div class="container text-center">
             <h2 class="mb-4">Contact</h2>
-            <p class="lead mb-4">Disponible pour des opportunités en tant que Chef privé ou Chef de cuisine</p>
-            <a href="mailto:contact@example.com" class="btn btn-dark btn-lg">Me Contacter</a>
+            <p class="lead mb-4">Michele Valsania</p>
+            <p class="lead mb-4">Magagnosc - Grasse (06)</p>
+            <p class="lead mb-4">Conseiller culinaire</p>
+            <p class="lead mb-4">Chef privé</p>
+            <a href="mailto:michele.valsania@cookcodechange.com" class="btn btn-dark btn-lg">Me Contacter</a>
         </div>
     </section>
 

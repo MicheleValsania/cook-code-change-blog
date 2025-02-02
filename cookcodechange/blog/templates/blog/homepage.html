@@ -29,9 +29,17 @@
     <nav class="main-menu">
         <div class="menu-container">
             <ul>
-                <li><a href="{% url 'category_posts' 'Cook' %}">Cook</a></li>
-                <li><a href="{% url 'category_posts' 'Code' %}">Code</a></li>
-                <li><a href="{% url 'category_posts' 'Change' %}">Change</a></li>
+                <li class="nav-dropdown">
+                    <a href="#">Articles <i class="fas fa-chevron-down"></i></a>
+                    <div class="nav-dropdown-content">
+                        <a href="{% url 'category_posts' 'VENTRE' %}"><i class="fas fa-utensils"></i> Le Ventre</a>
+                        <a href="{% url 'category_posts' 'TETE' %}"><i class="fas fa-brain"></i> La Tête</a>
+                        <a href="{% url 'category_posts' 'COEUR' %}"><i class="fas fa-heart"></i> Le Cœur</a>
+                    </div>
+                </li>
+                <li><a href="{% url 'portfolio:portfolio' %}">Cook</a></li>
+                <li><a href="{% url 'codeur' %}">Code</a></li>
+                <li><a href="{% url 'explorateur' %}">Change</a></li>
             </ul>
         </div>
     </nav>
@@ -92,7 +100,7 @@
 
             <div class="instagram-feed">
                 <h2>My Hidden Provence</h2>
-                <h3>en voyage avec l'IA</h3>
+                <h3>Mon voyage avec l'IA</h3>
                 <div id="instagram-container">
                     <div class="instagram-loading">
                         <i class="fas fa-spinner fa-spin"></i>

@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Explorateur - Michele Valsania</title>
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Dancing+Script:wght@500&family=Source+Serif+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="blog-header">
+        <div class="header-content">
+            <h1>
+                <a href="{% url 'landing' %}" style="text-decoration: none; color: inherit;">
+                    <span class="cook"><i class="fas fa-utensils"></i> Cook</span>
+                    <span class="code"><i class="fas fa-code"></i> Code</span>
+                    <span class="change"><i class="fas fa-sync-alt icon"></i> Change</span>
+                </a>
+            </h1>
+            <p class="tagline">"Quand le seul outil que l'on possède est un marteau, on a tendance à considérer chaque problème comme un clou."</p>
+        </div>
+    </header>
+
+    <nav class="main-menu">
+        <div class="menu-container">
+            <ul>
+                <li><a href="{% url 'portfolio:portfolio' %}">Cook</a></li>
+                <li><a href="{% url 'codeur' %}">Code</a></li>
+                <li><a href="{% url 'explorateur' %}">Change</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="posts-layout">
+        <div class="main-content">
+            <section class="static-content">
+                <h1>{{ page.title }}</h1>
+                <p class="tagline">{{ page.subtitle }}</p>
+                <div class="content">
+                    {{ page.content|safe }}
+                </div>
+            </section>
+            <section class="posts-section">
+                {% if posts %}
+                    <div class="wide-post">
+                        <h2>{{ posts.0.title }}</h2>
+                        <p><small>{{ posts.0.created_at|date:"F d, Y" }}</small></p>
+                        <div class="article-content">
+                            {% if posts.0.image %}
+                                <div class="post-image-container">
+                                    <img src="{{ posts.0.image.url }}" alt="{{ posts.0.title }}" class="post-image">
+                                </div>
+                            {% endif %}
+                            {{ posts.0.content|safe|truncatewords_html:200 }}
+                        </div>
+                        <a href="{% url 'post_detail' posts.0.id %}" class="read-more">Lire la suite</a>
+                    </div>
+
+                    {% if posts|length > 1 %}
+                    <div class="columns">
+                        {% for post in posts|slice:"1:" %}
+                            <div class="column">
+                                <h2>{{ post.title }}</h2>
+                                <p><small>{{ post.created_at|date:"F d, Y" }}</small></p>
+                                {% if post.image %}
+                                    <div class="post-image-container">
+                                        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+                                    </div>
+                                {% endif %}
+                                <div class="article-content">
+                                    {{ post.content|safe|truncatewords_html:60 }}
+                                </div>
+                                <a href="{% url 'post_detail' post.id %}" class="read-more">Lire la suite</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                {% else %}
+                    <p>Aucun article disponible pour le moment.</p>
+                {% endif %}
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p class="footer">&copy; {% now "Y" %} Michele Valsania. Designed with passion for cooking and coding.</p>
+    </footer>
+</body>
+</html>
